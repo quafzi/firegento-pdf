@@ -144,7 +144,7 @@ class FireGento_Pdf_Model_Invoice extends FireGento_Pdf_Model_Abstract
             $page->drawLine($this->margin['left'], $this->y + 5, $this->margin['right'], $this->y + 5);
 
             /* add totals */
-            $this->insertTotals($page, $invoice);
+            $page = $this->insertTotals($page, $invoice);
 
             /* add note */
             if ($mode == 'invoice') {
