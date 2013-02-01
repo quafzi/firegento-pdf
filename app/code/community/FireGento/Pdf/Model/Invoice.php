@@ -149,8 +149,8 @@ class FireGento_Pdf_Model_Invoice extends FireGento_Pdf_Model_Abstract
             /* add note */
             if ($mode == 'invoice') {
                 $this->insertNote($page, $order, $invoice);
-                $this->insertPaymentInfo($page, $order, $invoice);
-                $this->insertShippingInfo($page, $order, $invoice);
+                $page = $this->insertPaymentInfo($page, $order, $invoice);
+                $page = $this->insertShippingInfo($page, $order, $invoice);
             }
         }
 
@@ -424,6 +424,7 @@ class FireGento_Pdf_Model_Invoice extends FireGento_Pdf_Model_Abstract
                   $page = $this->newPage($pageSettings);
               }
           }
+          return $page;
     }
 
      /* Payment Info*/
@@ -465,6 +466,7 @@ class FireGento_Pdf_Model_Invoice extends FireGento_Pdf_Model_Abstract
                   }
               }
             }
+            return $page;
         }
 
     /**
