@@ -456,7 +456,7 @@ class FireGento_Pdf_Model_Invoice extends FireGento_Pdf_Model_Abstract
                   //Printing "Payment Method" lines
                   $value = preg_replace('/<br[^>]*>/i', "", $value);
                   foreach (Mage::helper('core/string')->str_split($value, 45, true, true) as $_value) {
-                      $payment_block .= strip_tags(trim($_value));
+                      $payment_block = strip_tags(trim($_value));
                       $page->drawText($payment_block, $this->margin['left']+60, $this->y - 15, 'UTF-8');
 
                       $this->y -= 15;
