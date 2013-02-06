@@ -55,6 +55,16 @@
                             <show_in_store>1</show_in_store>
                             <comment>Printed on every invoice.</comment>
                         </note>
+                        <item_price_column_order translate="label comment">
+                            <label>Order of price columns of items</label>
+                            <comment>Define the order of price, price_incl_tax, qty, tax, tax_rate, subtotal and subtotal_incl_tax of invoice items, separated by comma. E.g. "price,tax,subtotal"</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Printed on every invoice.</comment>
+                        </item_price_column_order>
                     </fields>
                 </invoice>
                 <firegento_pdf translate="label">
