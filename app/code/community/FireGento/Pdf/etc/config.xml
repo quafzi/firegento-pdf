@@ -25,6 +25,11 @@
                 </rewrite>
             </sales>
         </models>
+        <blocks>
+            <firegento_pdf>
+                <class>FireGento_Pdf_Block</class>
+            </firegento_pdf>
+        </blocks>
         <events>
             <firegento_pdf_invoice_insert_note>
                 <observers>
