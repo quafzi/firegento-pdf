@@ -149,8 +149,6 @@ class FireGento_Pdf_Model_Invoice extends FireGento_Pdf_Model_Abstract
             /* add note */
             if ($mode == 'invoice') {
                 $this->insertNote($page, $order, $invoice);
-                $page = $this->insertPaymentInfo($page, $order, $invoice);
-                $page = $this->insertShippingInfo($page, $order, $invoice);
             }
         }
 
@@ -405,69 +403,6 @@ class FireGento_Pdf_Model_Invoice extends FireGento_Pdf_Model_Abstract
 
         return $page;
     }
-
-     /* Shipping Info */
-    public function insertShippingInfo($page, $order, $invoice)
-    {
-          if ($this->y - 15 < 120) {
-              $page = $this->newPage($pageSettings);
-          }
-          $this->_setFontBold($page);
-          $page->drawText(Mage::helper('sales')->__('Shipping Method:'), $this->margin['left'], ($this->y - 15), 'UTF-8');
-          $this->_setFontRegular($page);
-
-          $shippingMethod  = $order->getShippingDescription();
-          foreach (Mage::helper('core/string')->str_split($shippingMethod, 45, true, true) as $_value) {
-              $page->drawText(strip_tags(trim($_value)), $this->margin['left']+60, $this->y-15, 'UTF-8');
-              $this->y -= 15;
-              if ($this->y - 15 < 120) {
-                  $page = $this->newPage($pageSettings);
-              }
-          }
-          return $page;
-    }
-
-     /* Payment Info*/
-    public function insertPaymentInfo($page, $order, $invoice)
-    {
-            $paymentInfo = Mage::helper('payment')->getInfoBlock($order->getPayment())
-                ->setIsSecureMode(true)
-                ->toPdf();
-            $paymentInfo = htmlspecialchars_decode($paymentInfo, ENT_QUOTES);
-            $payment = explode('{{pdf_row_separator}}', $paymentInfo);
-            foreach ($payment as $key=>$value){
-                if (strip_tags(trim($value)) == '') {
-                    unset($payment[$key]);
-                }
-            }
-            reset($payment);
-
-
-            if ($this->y - 15 < 120) {
-                $page = $this->newPage($pageSettings);
-            }
-
-            $this->_setFontBold($page);
-            $page->drawText(Mage::helper('sales')->__('Payment Method:'), $this->margin['left'], ($this->y - 15), 'UTF-8');
-            $this->_setFontRegular($page);
-
-            foreach ($payment as $value){
-              if (trim($value) != '') {
-                  //Printing "Payment Method" lines
-                  $value = preg_replace('/<br[^>]*>/i', "", $value);
-                  foreach (Mage::helper('core/string')->str_split($value, 45, true, true) as $_value) {
-                      $payment_block = strip_tags(trim($_value));
-                      $page->drawText($payment_block, $this->margin['left']+60, $this->y - 15, 'UTF-8');
-
-                      $this->y -= 15;
-                      if ($this->y - 15 < 120) {
-                          $page = $this->newPage($pageSettings);
-                      }
-                  }
-              }
-            }
-            return $page;
-        }
 
     /**
      * Return status of the engine.
