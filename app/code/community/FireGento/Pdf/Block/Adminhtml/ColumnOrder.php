@@ -24,6 +24,10 @@ class Firegento_Pdf_Block_Adminhtml_ColumnOrder
             <script type="text/javascript">
                 Sortable.create("' . $element->getHtmlId() . '_list", {
                     onUpdate: function() {
+                        var inheritCheckbox = $("' . $element->getHtmlId() . '_inherit");
+                        if (inheritCheckbox) {
+                            inheritCheckbox.checked=false;
+                        }
                         var newOrder="";
                         $A(this.element.children).each(function(item){
                             var current = $(item).attributes["data-column"].value;
