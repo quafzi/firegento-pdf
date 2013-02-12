@@ -558,7 +558,7 @@ abstract class FireGento_Pdf_Model_Abstract extends Mage_Sales_Model_Order_Pdf_A
             'email' => Mage::helper('firegento_pdf')->__('E-Mail:'),
             'web' => Mage::helper('firegento_pdf')->__('Web:')
         );
-        $this->_insertFooterBlock($page, $fields, 70, 40, 140);
+        $this->_insertFooterBlock($page, $fields, 50, 30, 190);
 
         $fields = array(
             'bank_name' => Mage::helper('firegento_pdf')->__('Bank name:'),
@@ -568,7 +568,7 @@ abstract class FireGento_Pdf_Model_Abstract extends Mage_Sales_Model_Order_Pdf_A
             'swift' => Mage::helper('firegento_pdf')->__('SWIFT:'),
             'iban' => Mage::helper('firegento_pdf')->__('IBAN:')
         );
-        $this->_insertFooterBlock($page, $fields, 215, 50, 140);
+        $this->_insertFooterBlock($page, $fields, 235, 50, 160);
 
         $fields = array(
             'tax_number' => Mage::helper('firegento_pdf')->__('Tax number:'),
@@ -576,7 +576,7 @@ abstract class FireGento_Pdf_Model_Abstract extends Mage_Sales_Model_Order_Pdf_A
             'register_number' => Mage::helper('firegento_pdf')->__('Register number:'),
             'ceo' => Mage::helper('firegento_pdf')->__('CEO:')
         );
-        $this->_insertFooterBlock($page, $fields, 355, 60, $this->margin['right'] - 355 - 10);
+        $this->_insertFooterBlock($page, $fields, 380, 55, $this->margin['right'] - 345 - 10);
     }
 
     /**
