@@ -30,6 +30,8 @@
 "Tax","MwSt."
 "Tax amount","Steuerbetrag"
 "Total","Summe"
+"Show Item Discount","Rabatt auf Artikelebene anzeigen"
+"You get a discount of %s.","Sie erhalten einen Rabatt von %s."
 "Invoice","Rechnung"
 "Creditmemo","Gutschrift"
 "Invoice number:","Rechnungsnummer:"

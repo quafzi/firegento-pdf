@@ -68,7 +68,6 @@ class Firegento_Pdf_Block_Adminhtml_ColumnOrder
             'price_incl_tax'    => array('width' => 60, 'label' => $this->__('Price (incl. tax)')),
             'price'             => array('width' => 60, 'label' => $this->__('Price')),
             'qty'               => array('width' => 40, 'label' => $this->__('Qty')),
-            'discount'          => array('width' => 50, 'label' => $this->__('Discount')),
             'subtotal_incl_tax' => array('width' => 70, 'label' => $this->__('Subtotal (incl. tax)')),
             'subtotal'          => array('width' => 50, 'label' => $this->__('Subtotal')),
             'tax'               => array('width' => 50, 'label' => $this->__('Tax amount')),
