@@ -132,7 +132,7 @@ class FireGento_Pdf_Model_Invoice extends FireGento_Pdf_Model_Abstract
                     continue;
                 }
 
-                if ($this->y < 200) {
+                if ($this->y < 205) {
                     $page = $this->newPage(array());
                 }
 
