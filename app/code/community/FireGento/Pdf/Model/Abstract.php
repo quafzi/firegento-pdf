@@ -168,7 +168,7 @@ abstract class FireGento_Pdf_Model_Abstract extends Mage_Sales_Model_Order_Pdf_A
         }
     }
 
-        /**
+    /**
      * Insert Billing Address
      *
      * @param object $page  Current Page Object of Zend_PDF
@@ -178,10 +178,48 @@ abstract class FireGento_Pdf_Model_Abstract extends Mage_Sales_Model_Order_Pdf_A
      */
     protected function insertBillingAddress(&$page, $order)
     {
+        $this->_insertAddress(
+            $page,
+            $this->_formatAddress($order->getBillingAddress()->format('pdf')),
+            $this->margin['left']
+        );
+    }
+
+    /**
+     * Insert Shipping Address
+     *
+     * @param object $page  Current Page Object of Zend_PDF
+     * @param object $order Order object
+     *
+     * @return void
+     */
+    protected function insertShippingAddress(&$page, $order)
+    {
+        $x = $this->margin['left'] + 225;
+        $this->_setFontRegular($page, 6);
+        $page->drawText(Mage::helper('firegento_pdf')->__('SHIP TO:'), $x, $this->y, $this->encoding);
+        $this->Ln(15);
+        $this->_insertAddress(
+            $page,
+            $this->_formatAddress($order->getShippingAddress()->format('pdf')),
+            $x
+        );
+    }
+
+    /**
+     * Insert Address
+     *
+     * @param object $page    Current Page Object of Zend_PDF
+     * @param object $address Address object
+     * @param int    $x       Horizontal position
+     *
+     * @return void
+     */
+    protected function _insertAddress(&$page, $address, $x)
+    {
         $this->_setFontRegular($page, 9);
-        $billing = $this->_formatAddress($order->getBillingAddress()->format('pdf'));
-        foreach ($billing as $line) {
-            $page->drawText(trim(strip_tags($line)), $this->margin['left'], $this->y, $this->encoding);
+        foreach ($address as $line) {
+            $page->drawText(trim(strip_tags($line)), $x, $this->y, $this->encoding);
             $this->Ln(12);
         }
     }

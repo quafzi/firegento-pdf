@@ -111,6 +111,12 @@ class FireGento_Pdf_Model_Invoice extends FireGento_Pdf_Model_Abstract
             $this->y = 705;
             $this->_insertSenderAddessBar($page);
 
+            if ((bool)(int) Mage::getStoreConfig('sales_pdf/invoice/show_shipping_address')) {
+                /* add shipping address */
+                $this->y = 705;
+                $this->insertShippingAddress($page, $order);
+            }
+
             /* add header */
             $this->y = 592;
             $this->insertHeader($page, $order, $invoice);
