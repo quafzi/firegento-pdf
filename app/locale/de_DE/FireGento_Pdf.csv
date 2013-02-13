@@ -7,6 +7,7 @@
 "Invoice is payable immediately","Die Rechnung ist sofort fällig"
 "Invoice date is equal to delivery date.","Rechnungsdatum ist gleich dem Lieferdatum."
 "Payment method: %s","Zahlungsart: %s"
+"Show Verbose Payment Information","Ausführliche Zahlungsinformationen zeigen"
 "Page","Seite"
 "Telephone:","Telefon:"
 "Fax:","Fax:"

@@ -79,8 +79,37 @@ class FireGento_Pdf_Model_Observer
     {
         $result = $observer->getResult();
         $notes = $result->getNotes();
-        $notes[] = Mage::helper('firegento_pdf')->__('Payment method: %s', $observer->getOrder()->getPayment()->getMethodInstance()->getTitle());
+        if ((bool)(int) Mage::getStoreConfig('sales_pdf/invoice/verbose_payment_info')) {
+            $notes = array_merge($notes, $this->getPaymentInformation($observer->getOrder()));
+        } else {
+            $notes[] = Mage::helper('firegento_pdf')->__(
+                'Payment method: %s',
+                $observer->getOrder()->getPayment()->getMethodInstance()->getTitle()
+            );
+        }
         $result->setNotes($notes);
         return $this;
+    }
+
+    protected function getPaymentInformation($order)
+    {
+        /* Payment */
+        $paymentInfo = Mage::helper('payment')->getInfoBlock($order->getPayment())
+            ->setIsSecureMode(true)
+            ->toHtml();
+        $paymentInfo = Mage::helper('firegento_pdf')->__('Payment method: %s', $paymentInfo);
+        $paymentInfo = preg_split('/<br[^>]*>/i', htmlspecialchars_decode($paymentInfo, ENT_QUOTES));
+
+        $notes = array();
+        foreach ($paymentInfo as $value){
+            if (trim($value) == '') {
+                continue;
+            }
+            // add "Payment Method" lines
+            foreach (Mage::helper('core/string')->str_split($value, 50, true, true) as $_value) {
+                $notes[] = strip_tags(trim($_value));
+            }
+        }
+        return $notes;
     }
 }

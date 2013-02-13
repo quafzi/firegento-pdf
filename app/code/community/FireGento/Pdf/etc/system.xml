@@ -55,6 +55,15 @@
                           <show_in_website>1</show_in_website>
                           <show_in_store>1</show_in_store>
                         </show_shipping_address>
+                        <verbose_payment_info translate="label">
+                          <label>Show Verbose Payment Information</label>
+                          <frontend_type>select</frontend_type>
+                          <source_model>adminhtml/system_config_source_yesno</source_model>
+                          <sort_order>4</sort_order>
+                          <show_in_default>1</show_in_default>
+                          <show_in_website>1</show_in_website>
+                          <show_in_store>1</show_in_store>
+                        </verbose_payment_info>
                         <note translate="label comment">
                             <label>Note</label>
                             <frontend_type>textarea</frontend_type>

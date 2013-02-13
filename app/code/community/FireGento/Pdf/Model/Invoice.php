@@ -177,7 +177,7 @@ class FireGento_Pdf_Model_Invoice extends FireGento_Pdf_Model_Abstract
     {
         $fontSize = 10;
         $font = $this->_setFontRegular($page, $fontSize);
-        $this->y = $this->y - 60;
+        $this->y = $this->y + 60;
 
         $notes = array();
 
