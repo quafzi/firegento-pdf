@@ -106,7 +106,7 @@ class FireGento_Pdf_Model_Observer
                 continue;
             }
             // add "Payment Method" lines
-            foreach (Mage::helper('core/string')->str_split($value, 50, true, true) as $_value) {
+            foreach (Mage::helper('core/string')->str_split($value, 65, true, true) as $_value) {
                 $notes[] = strip_tags(trim($_value));
             }
         }
