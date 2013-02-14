@@ -173,11 +173,10 @@ class FireGento_Pdf_Model_Invoice extends FireGento_Pdf_Model_Abstract
      * @param Mage_Sales_Model_Order_Invoice $invoice
      * @return void
      */
-    protected function insertNote($page, &$order, &$invoice)
+    protected function insertNote(&$page, &$order, &$invoice)
     {
         $fontSize = 8;
         $font = $this->_setFontRegular($page, $fontSize);
-        $y = $this->y;
 
         $notes = array();
 
@@ -195,6 +194,7 @@ class FireGento_Pdf_Model_Invoice extends FireGento_Pdf_Model_Abstract
             $notes = array_merge($notes, $tmpNotes);
         }
 
+        $lines = array();
         // Draw notes on invoice.
         foreach ($notes as $note) {
             // prepare the text so that it fits to the paper
@@ -202,14 +202,22 @@ class FireGento_Pdf_Model_Invoice extends FireGento_Pdf_Model_Abstract
                 $font = $this->_setFontBold($page, $fontSize);
             }
             $nodeText = $this->_prepareText(trim(strip_tags($note)), $page, $font, $fontSize);
-            $y -= 15;
             $tmpNotes = explode("\n", $nodeText);
             foreach ($tmpNotes as $tmpNote) {
-                $page->drawText($tmpNote, $this->margin['left'], $y, $this->encoding);
+                $lines[] = $tmpNote;
             }
             if (false !== strpos($note, '</b>')) {
                 $font = $this->_setFontRegular($page, $fontSize);
             }
+        }
+        $height = 15;
+        if ($this->y < count($lines)*$height+120) {
+            $page = $this->newPage();
+        }
+        $y = $this->y;
+        foreach ($lines as $line) {
+            $y -= 15;
+            $page->drawText($line, $this->margin['left'], $y, $this->encoding);
         }
     }
 
