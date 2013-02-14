@@ -198,11 +198,17 @@ class FireGento_Pdf_Model_Invoice extends FireGento_Pdf_Model_Abstract
         // Draw notes on invoice.
         foreach ($notes as $note) {
             // prepare the text so that it fits to the paper
-            $note = $this->_prepareText($note, $page, $font, $fontSize);
-            $tmpNotes = explode("\n", $note);
+            if (false !== strpos($note, '<b>')) {
+                $font = $this->_setFontBold($page, $fontSize);
+            }
+            $nodeText = $this->_prepareText(trim(strip_tags($note)), $page, $font, $fontSize);
+            $y -= 15;
+            $tmpNotes = explode("\n", $nodeText);
             foreach ($tmpNotes as $tmpNote) {
-                $page->drawText($tmpNote, $this->margin['left'], $this->y + 30, $this->encoding);
-                $this->Ln(15);
+                $page->drawText($tmpNote, $this->margin['left'], $y, $this->encoding);
+            }
+            if (false !== strpos($note, '</b>')) {
+                $font = $this->_setFontRegular($page, $fontSize);
             }
         }
     }

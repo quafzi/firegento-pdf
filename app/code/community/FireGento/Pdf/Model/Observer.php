@@ -65,6 +65,9 @@ class FireGento_Pdf_Model_Observer
         }
 
         $notes[] = $maturity;
+
+        //add empty line after maturity
+        $notes[] = '';
         $result->setNotes($notes);
         return $this;
     }
@@ -101,15 +104,17 @@ class FireGento_Pdf_Model_Observer
         $paymentInfo = preg_split('/<br[^>]*>/i', htmlspecialchars_decode($paymentInfo, ENT_QUOTES));
 
         $notes = array();
-        foreach ($paymentInfo as $value){
+        foreach ($paymentInfo as $lineNumber=>$value){
             if (trim($value) == '') {
                 continue;
             }
-            // add "Payment Method" lines
-            foreach (Mage::helper('core/string')->str_split($value, 65, true, true) as $_value) {
-                $notes[] = strip_tags(trim($_value));
+            // add payment information
+            foreach (Mage::helper('core/string')->str_split($value, 80, true, true) as $_value) {
+                $notes[] = strip_tags(trim($_value), '<b>');
             }
         }
+        // add empty line after payment information
+        $notes[] = '';
         return $notes;
     }
 }
