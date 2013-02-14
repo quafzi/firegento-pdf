@@ -120,7 +120,7 @@ class FireGento_Pdf_Model_Invoice extends FireGento_Pdf_Model_Abstract
             }
 
             /* add header */
-            $this->y = 592;
+            $this->y = 562;
             $this->insertHeader($page, $order, $invoice);
 
             // Add footer
@@ -128,7 +128,7 @@ class FireGento_Pdf_Model_Invoice extends FireGento_Pdf_Model_Abstract
 
             /* add table header */
             $this->_setFontRegular($page, 9);
-            $this->y = 562;
+            $this->y = 532;
             $this->insertTableHeader($page);
 
             $this->y -=20;
