@@ -65,6 +65,30 @@ class FireGento_Pdf_Model_Items_Creditmemo_Default extends Mage_Sales_Model_Orde
             'font_size' => $fontSize
         );
 
+        $options = $this->getItemOptions();
+        if ($options) {
+            foreach ($options as $option) {
+                // draw options label
+                $lines[][] = array(
+                    'text' => Mage::helper('core/string')->str_split(strip_tags($option['label']), 40, false, true),
+                    'font' => 'bold',
+                    'feed' => $pdf->margin['left'] + 120
+                );
+
+                // draw options value
+                if ($option['value']) {
+                    $_printValue = isset($option['print_value']) ? $option['print_value'] : strip_tags($option['value']);
+                    $values = explode(', ', $_printValue);
+                    foreach ($values as $value) {
+                        $lines[][] = array(
+                            'text' => Mage::helper('core/string')->str_split($value, 60, true, true),
+                            'feed' => $pdf->margin['left'] + 120
+                        );
+                    }
+                }
+            }
+        }
+
         // draw QTY
         $lines[0][] = array(
             'text'  => $item->getQty() * 1,
