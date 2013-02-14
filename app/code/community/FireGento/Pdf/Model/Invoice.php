@@ -436,6 +436,10 @@ class FireGento_Pdf_Model_Invoice extends FireGento_Pdf_Model_Abstract
             'model' => 'firegento_pdf/items_default',
             'renderer' => null
         );
+        $this->_renderers['bundle'] = array(
+            'model' => 'firegento_pdf/items_bundle',
+            'renderer' => null
+        );
         $this->_renderers['grouped'] = array(
             'model' => 'firegento_pdf/items_grouped',
             'renderer' => null
