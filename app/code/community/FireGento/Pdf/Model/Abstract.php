@@ -291,8 +291,10 @@ abstract class FireGento_Pdf_Model_Abstract extends Mage_Sales_Model_Order_Pdf_A
         $page->drawText(Mage::helper('firegento_pdf')->__(($mode == 'invoice') ? 'Invoice date:' : 'Date:'), ($this->margin['right'] - $rightoffset), $this->y, $this->encoding);
 
         $this->y += $yPlus;
-        $rightoffset = 60;
-        $page->drawText($document->getIncrementId(), ($this->margin['right'] - $rightoffset), $this->y, $this->encoding);
+        $rightoffset = 0;
+        $font = $this->_setFontRegular($page, 10);
+
+        $page->drawText($document->getIncrementId(), ($this->margin['right'] - $rightoffset - $this->widthForStringUsingFontSize($document->getIncrementId(), $font, 10)), $this->y, $this->encoding);
         $this->Ln();
 
         if (Mage::getStoreConfig('sales_pdf/invoice/show_last_transaction_id')) {
