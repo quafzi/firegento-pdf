@@ -253,6 +253,26 @@ abstract class FireGento_Pdf_Model_Abstract extends Mage_Sales_Model_Order_Pdf_A
 
         $yPlus = 15;
 
+        if (Mage::getStoreConfig('sales_pdf/invoice/show_last_transaction_id')) {
+            if (Mage::getStoreConfig('sales_pdf/invoice/emphasize_transaction')) {
+                $this->_setFontBold($page);
+            }
+            $label = Mage::getStoreConfig('sales_pdf/invoice/transaction_label');
+            $page->drawText($label, ($this->margin['right'] - $rightoffset), $this->y, $this->encoding);
+            $this->_setFontRegular($page);
+            $this->Ln();
+            $yPlus += 15;
+
+            if (Mage::getStoreConfig('sales_pdf/invoice/transaction_comment')) {
+                $comment = Mage::getStoreConfig('sales_pdf/invoice/transaction_comment');
+                $this->_setFontRegular($page, 8);
+                $page->drawText($comment, ($this->margin['right'] - $rightoffset), $this->y, $this->encoding);
+                $this->Ln();
+                $yPlus += 15;
+            }
+            $this->_setFontRegular($page);
+        }
+
         if($order->getCustomerId() != "") {
 
             $page->drawText(Mage::helper('firegento_pdf')->__('Customer number:'), ($this->margin['right'] - $rightoffset), $this->y, $this->encoding);
@@ -275,8 +295,19 @@ abstract class FireGento_Pdf_Model_Abstract extends Mage_Sales_Model_Order_Pdf_A
         $page->drawText($document->getIncrementId(), ($this->margin['right'] - $rightoffset), $this->y, $this->encoding);
         $this->Ln();
 
-        $rightoffset = 10;
-        $font = $this->_setFontRegular($page, 10);
+        if (Mage::getStoreConfig('sales_pdf/invoice/show_last_transaction_id')) {
+            $font = $this->_setFontRegular($page, 10);
+            if (Mage::getStoreConfig('sales_pdf/invoice/emphasize_transaction')) {
+                $font = $this->_setFontBold($page, 10);
+            }
+            $transactionId = $order->getPayment()->getLastTransId();
+            $page->drawText($transactionId, ($this->margin['right'] - $rightoffset - $this->widthForStringUsingFontSize($transactionId, $font, 10)), $this->y, $this->encoding);
+            $this->Ln();
+            $font = $this->_setFontRegular($page, 10);
+            if (Mage::getStoreConfig('sales_pdf/invoice/transaction_comment')) {
+                $this->Ln();
+            }
+        }
 
         if($order->getCustomerId() != "") {
 

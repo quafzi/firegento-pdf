@@ -32,7 +32,7 @@
                             <label>PDF Engine</label>
                             <frontend_type>select</frontend_type>
                             <source_model>firegento_pdf/system_config_source_engine</source_model>
-                            <sort_order>2</sort_order>
+                            <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -40,7 +40,7 @@
                         <maturity translate="label comment">
                             <label>Invoice Maturity</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>3</sort_order>
+                            <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -50,16 +50,59 @@
                           <label>Show Shipping Address</label>
                           <frontend_type>select</frontend_type>
                           <source_model>adminhtml/system_config_source_yesno</source_model>
-                          <sort_order>4</sort_order>
+                          <sort_order>30</sort_order>
                           <show_in_default>1</show_in_default>
                           <show_in_website>1</show_in_website>
                           <show_in_store>1</show_in_store>
                         </show_shipping_address>
+                        <show_last_transaction_id translate="label">
+                          <label>Show Last Transaction ID</label>
+                          <frontend_type>select</frontend_type>
+                          <source_model>adminhtml/system_config_source_yesno</source_model>
+                          <sort_order>40</sort_order>
+                          <show_in_default>1</show_in_default>
+                          <show_in_website>1</show_in_website>
+                          <show_in_store>1</show_in_store>
+                        </show_last_transaction_id>
+                        <transaction_label translate="label">
+                          <label>Transaction Label</label>
+                          <frontend_type>text</frontend_type>
+                          <sort_order>41</sort_order>
+                          <depends>
+                              <show_last_transaction_id>1</show_last_transaction_id>
+                          </depends>
+                          <show_in_default>1</show_in_default>
+                          <show_in_website>1</show_in_website>
+                          <show_in_store>1</show_in_store>
+                        </transaction_label>
+                        <emphasize_transaction translate="label">
+                          <label>Emphasize Transaction</label>
+                          <frontend_type>select</frontend_type>
+                          <source_model>adminhtml/system_config_source_yesno</source_model>
+                          <sort_order>42</sort_order>
+                          <depends>
+                              <show_last_transaction_id>1</show_last_transaction_id>
+                          </depends>
+                          <show_in_default>1</show_in_default>
+                          <show_in_website>1</show_in_website>
+                          <show_in_store>1</show_in_store>
+                        </emphasize_transaction>
+                        <transaction_comment translate="label">
+                          <label>Transaction Comment</label>
+                          <frontend_type>text</frontend_type>
+                          <sort_order>43</sort_order>
+                          <depends>
+                              <show_last_transaction_id>1</show_last_transaction_id>
+                          </depends>
+                          <show_in_default>1</show_in_default>
+                          <show_in_website>1</show_in_website>
+                          <show_in_store>1</show_in_store>
+                        </transaction_comment>
                         <verbose_payment_info translate="label">
                           <label>Show Verbose Payment Information</label>
                           <frontend_type>select</frontend_type>
                           <source_model>adminhtml/system_config_source_yesno</source_model>
-                          <sort_order>4</sort_order>
+                          <sort_order>50</sort_order>
                           <show_in_default>1</show_in_default>
                           <show_in_website>1</show_in_website>
                           <show_in_store>1</show_in_store>
@@ -67,7 +110,7 @@
                         <note translate="label comment">
                             <label>Note</label>
                             <frontend_type>textarea</frontend_type>
-                            <sort_order>4</sort_order>
+                            <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -76,7 +119,7 @@
                         <item_price_column_order translate="label comment">
                             <label>Order of price columns of items</label>
                             <frontend_model>firegento_pdf/adminhtml_columnOrder</frontend_model>
-                            <sort_order>5</sort_order>
+                            <sort_order>70</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -85,7 +128,7 @@
                           <label>Show Item Discount</label>
                           <frontend_type>select</frontend_type>
                           <source_model>adminhtml/system_config_source_yesno</source_model>
-                          <sort_order>10</sort_order>
+                          <sort_order>80</sort_order>
                           <show_in_default>1</show_in_default>
                           <show_in_website>1</show_in_website>
                           <show_in_store>1</show_in_store>
