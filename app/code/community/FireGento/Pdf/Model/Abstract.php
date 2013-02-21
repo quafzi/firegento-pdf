@@ -571,8 +571,8 @@ abstract class FireGento_Pdf_Model_Abstract extends Mage_Sales_Model_Order_Pdf_A
                         $lineBlock['lines'][] = array(
                             array(
                                 'text'      => $label,
-                                'feed'      => $this->margin['right'] - 100,
-                                'align'     => 'right',
+                                'feed'      => $this->margin['left'] + 320,
+                                'align'     => 'left',
                                 'font_size' => $fontSize,
                                 'font'      => $fontWeight
                             ),
