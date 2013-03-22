@@ -33,6 +33,12 @@
  */
 class FireGento_Pdf_Model_Creditmemo extends FireGento_Pdf_Model_Abstract
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->setMode('creditmemo');
+    }
+
     /**
      * Return PDF document
      *
@@ -75,6 +81,14 @@ class FireGento_Pdf_Model_Creditmemo extends FireGento_Pdf_Model_Abstract
 //                $order,
 //                Mage::getStoreConfigFlag(self::XML_PATH_SALES_PDF_CREDITMEMO_PUT_ORDER_ID, $order->getStoreId())
 //            );
+
+            if ((bool)(int) Mage::getStoreConfig('sales_pdf/creditmemo/show_shipping_address')
+                && $order->getShippingAddress()
+            ) {
+                /* add shipping address */
+                $this->y = 705;
+                $this->insertShippingAddress($page, $order);
+            }
 
             // Add head
             $this->y = 592;

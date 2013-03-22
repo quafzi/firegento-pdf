@@ -241,19 +241,28 @@ abstract class FireGento_Pdf_Model_Abstract extends Mage_Sales_Model_Order_Pdf_A
 
         $this->_setFontBold($page, 15);
 
-        $page->drawText(Mage::helper('firegento_pdf')->__( ($mode == 'invoice') ? 'Invoice' : 'Creditmemo' ), $this->margin['left'], $this->y, $this->encoding);
+        $page->drawText(Mage::helper('firegento_pdf')->__(ucfirst($mode)), $this->margin['left'], $this->y, $this->encoding);
 
         $this->_setFontRegular($page);
 
         $this->y += 34;
         $rightoffset = 180;
 
-        $page->drawText(Mage::helper('firegento_pdf')->__( ($mode == 'invoice') ? 'Invoice number:' : 'Creditmemo number:' ), ($this->margin['right'] - $rightoffset), $this->y, $this->encoding);
+        $page->drawText(Mage::helper('firegento_pdf')->__(ucfirst($mode) . ' number:'), ($this->margin['right'] - $rightoffset), $this->y, $this->encoding);
         $this->Ln();
-
         $yPlus = 15;
 
-        if (Mage::getStoreConfig('sales_pdf/invoice/show_last_transaction_id')) {
+        $page->drawText(Mage::helper('firegento_pdf')->__('Order number:'), ($this->margin['right'] - $rightoffset), $this->y, $this->encoding);
+        $this->Ln();
+        $yPlus += 15;
+
+        if (Mage::getStoreConfig('sales_pdf/' . $mode . '/show_order_date')) {
+            $page->drawText(Mage::helper('firegento_pdf')->__('Order date:'), ($this->margin['right'] - $rightoffset), $this->y, $this->encoding);
+            $this->Ln();
+            $yPlus += 15;
+        }
+
+        if (Mage::getStoreConfig('sales_pdf/' . $mode . '/show_last_transaction_id')) {
             if (Mage::getStoreConfig('sales_pdf/invoice/emphasize_transaction')) {
                 $this->_setFontBold($page);
             }
@@ -288,7 +297,7 @@ abstract class FireGento_Pdf_Model_Abstract extends Mage_Sales_Model_Order_Pdf_A
             $yPlus += 15;
         }
 
-        $page->drawText(Mage::helper('firegento_pdf')->__(($mode == 'invoice') ? 'Invoice date:' : 'Date:'), ($this->margin['right'] - $rightoffset), $this->y, $this->encoding);
+        $page->drawText(Mage::helper('firegento_pdf')->__(ucfirst($mode) . ' date:'), ($this->margin['right'] - $rightoffset), $this->y, $this->encoding);
 
         $this->y += $yPlus;
         $rightoffset = 0;
@@ -297,7 +306,16 @@ abstract class FireGento_Pdf_Model_Abstract extends Mage_Sales_Model_Order_Pdf_A
         $page->drawText($document->getIncrementId(), ($this->margin['right'] - $rightoffset - $this->widthForStringUsingFontSize($document->getIncrementId(), $font, 10)), $this->y, $this->encoding);
         $this->Ln();
 
-        if (Mage::getStoreConfig('sales_pdf/invoice/show_last_transaction_id')) {
+        $page->drawText($document->getOrder()->getIncrementId(), ($this->margin['right'] - $rightoffset - $this->widthForStringUsingFontSize($document->getIncrementId(), $font, 10)), $this->y, $this->encoding);
+        $this->Ln();
+
+        if (Mage::getStoreConfig('sales_pdf/' . $mode . '/show_order_date')) {
+            $orderDate = Mage::helper('core')->formatDate($document->getOrder()->getCreatedAtDate(), 'medium', false);
+            $page->drawText($orderDate, ($this->margin['right'] - $rightoffset - $this->widthForStringUsingFontSize($orderDate, $font, 10)), $this->y, $this->encoding);
+            $this->Ln();
+        }
+
+        if (Mage::getStoreConfig('sales_pdf/' . $mode . '/show_last_transaction_id')) {
             $font = $this->_setFontRegular($page, 10);
             if (Mage::getStoreConfig('sales_pdf/invoice/emphasize_transaction')) {
                 $font = $this->_setFontBold($page, 10);
