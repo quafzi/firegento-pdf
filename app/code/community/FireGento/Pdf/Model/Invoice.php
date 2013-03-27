@@ -305,14 +305,14 @@ class FireGento_Pdf_Model_Invoice extends FireGento_Pdf_Model_Abstract
         $pdf = $this->_getPdf();
 
         $page = $pdf->newPage(Zend_Pdf_Page::SIZE_A4);
+        $this->pagecounter++;
         $pdf->pages[] = $page;
 
         if ($this->imprint) {
             $this->y = 100;
-            $this->_insertFooter($page);
+            $this->_addFooter($page);
         }
 
-        $this->pagecounter++;
         $this->y = 110;
         $this->_insertPageCounter($page);
 
