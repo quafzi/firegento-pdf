@@ -394,6 +394,7 @@ abstract class FireGento_Pdf_Model_Abstract extends Mage_Sales_Model_Order_Pdf_A
         $shippingTaxRate = $order->getShippingTaxAmount()*100/($order->getShippingInclTax()-$order->getShippingTaxAmount());
 
         $groupedTax = array();
+        $items = array('items' => array());
 
         foreach ($source->getAllItems() as $item) {
             if ($item->getOrderItem()->getParentItem()) {
