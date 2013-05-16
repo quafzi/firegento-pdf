@@ -170,9 +170,14 @@ abstract class FireGento_Pdf_Model_Abstract extends Mage_Sales_Model_Order_Pdf_A
      */
     protected function insertBillingAddress(&$page, $order)
     {
+        $address = $this->_formatAddress($order->getBillingAddress()->format('pdf'));
+        if (Mage::getStoreConfig('sales_pdf/invoice/show_customer_taxvat')) {
+            $address[] = '';
+            $address[] = Mage::helper('firegento_pdf')->__('VAT-ID:') . ' ' . $order->getCustomerTaxvat();
+        }
         $this->_insertAddress(
             $page,
-            $this->_formatAddress($order->getBillingAddress()->format('pdf')),
+            $address,
             $this->margin['left']
         );
     }

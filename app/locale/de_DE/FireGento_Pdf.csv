@@ -25,6 +25,7 @@
 "IBAN:","IBAN:"
 "Tax number:","Steuernummer"
 "VAT-ID:","USt.Nr."
+"Show Customer Vat Id","USt.Nr. des Kunden ausgeben"
 "Register number:","HRB Nummer"
 "CEO:","Geschäftsführer"
 "Pos","Pos."
