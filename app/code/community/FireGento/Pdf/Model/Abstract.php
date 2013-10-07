@@ -680,6 +680,38 @@ abstract class FireGento_Pdf_Model_Abstract extends Mage_Sales_Model_Order_Pdf_A
                     }
                     break;
 
+                case 'fooman_surcharge_amount':
+                    $amount = $source->getDataUsingMethod($total['source_field']);
+                    $displayZero = (isset($total['display_zero']) ? $total['display_zero'] : 0);
+
+                    if ($amount != 0 || $displayZero) {
+                        $amount = $order->formatPriceTxt($amount);
+
+                        if (isset($total['amount_prefix']) && $total['amount_prefix']) {
+                            $amount = "{$total['amount_prefix']}{$amount}";
+                        }
+
+                        $label = $order->getFoomanSurchargeDescription() . ':';
+
+                        $lineBlock['lines'][] = array(
+                            array(
+                                'text'      => $label,
+                                'feed'      => $this->margin['left'] + 320,
+                                'align'     => 'left',
+                                'font_size' => $fontSize,
+                                'font'      => $fontWeight
+                            ),
+                            array(
+                                'text'      => $amount,
+                                'feed'      => $this->margin['right'] - 10,
+                                'align'     => 'right',
+                                'font_size' => $fontSize,
+                                'font'      => $fontWeight
+                            ),
+                        );
+                    }
+                    break;
+
                 default:
                     $amount = $source->getDataUsingMethod($total['source_field']);
                     $displayZero = (isset($total['display_zero']) ? $total['display_zero'] : 0);
