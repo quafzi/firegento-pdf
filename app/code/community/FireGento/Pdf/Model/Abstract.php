@@ -502,7 +502,7 @@ abstract class FireGento_Pdf_Model_Abstract extends Mage_Sales_Model_Order_Pdf_A
 
         $total_tax = 0;
         $shippingTaxAmount = $order->getShippingTaxAmount();
-        $shippingTaxRate = $shippingTaxAmount
+        $shippingTaxRate = (float)$shippingTaxAmount
             ? $shippingTaxAmount*100/($order->getShippingInclTax()-$shippingTaxAmount)
             : 0;
 
