@@ -507,6 +507,7 @@ abstract class FireGento_Pdf_Model_Abstract extends Mage_Sales_Model_Order_Pdf_A
             : 0;
 
         $groupedTax = array();
+        $groupedTaxedTotal = array();
         $items = array('items' => array());
 
         foreach ($source->getAllItems() as $item) {
@@ -539,9 +540,13 @@ abstract class FireGento_Pdf_Model_Abstract extends Mage_Sales_Model_Order_Pdf_A
             if (($item['tax_amount'])&&$_percent){
                 if(!array_key_exists((int)$_percent, $groupedTax)) {
                     $groupedTax[$_percent] = $item['tax_amount'];
-                }
-                else {
+                } else {
                     $groupedTax[$_percent] += $item['tax_amount'];
+                }
+                if(!array_key_exists((int)$_percent, $groupedTaxedTotal)) {
+                    $groupedTaxedTotal[$_percent] = $item['row_invoiced'] - $item['discount_invoiced'];
+                } else {
+                    $groupedTaxedTotal[$_percent] += $item['row_invoiced'] - $item['discount_invoiced'];
                 }
             }
         }
@@ -567,9 +572,14 @@ abstract class FireGento_Pdf_Model_Abstract extends Mage_Sales_Model_Order_Pdf_A
                             continue;
                         }
 
+                        $taxTitle = Mage::helper('firegento_pdf')->__(
+                            'Additional tax %s on %s',
+                            $source->getStore()->roundPrice(number_format($taxRate, 0)).'%',
+                            $order->formatPriceTxt($groupedTaxedTotal[$taxRate])
+                        );
                         $lineBlock['lines'][] = array(
                             array(
-                                'text'      => Mage::helper('firegento_pdf')->__('Additional tax %s', $source->getStore()->roundPrice(number_format($taxRate, 0)).'%'),
+                                'text'      => $taxTitle,
                                 'feed'      => $this->margin['left'] + 320,
                                 'align'     => 'left',
                                 'font_size' => $fontSize,

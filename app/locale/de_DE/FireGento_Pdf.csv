@@ -52,6 +52,7 @@
 "Invoice date:","Rechnungsdatum:"
 "Creditmemo date:","Gutschriftsdatum:"
 "Additional tax %s","Ust. %s:"
+"Additional tax %s on %s","Ust. %s auf %s:"
 "Shipping:","Versand:"
 "Guestorder","Gastbestellung"
 "not to be listed","nicht aufzulisten"
